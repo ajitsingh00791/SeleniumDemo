@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 import org.testng.ISuiteListener;
 import org.testng.ITestListener;
@@ -41,15 +42,16 @@ public class DemoQaTest extends BasePage{
     driver.switchTo().alert().accept();
     driver.findElement(By.xpath(" //button[@id='confirmButton']")).click();
     driver.switchTo().alert().accept();
-    driver.findElement(By.xpath("//button[@id='promtButton")).click();
+   ((JavascriptExecutor) driver).executeScript("arguments[0].click();", driver.findElement(By.xpath("//button[@id='promtButton']")));
     driver.switchTo().alert().sendKeys("userid");
+    driver.switchTo().alert().accept();
     }
     
     
-    @Test()
+    @Test(priority=2)
 	public void navigateToNewWndow() {
     driver.navigate().to("https://demoqa.com/browser-windows");
-    driver.findElement(By.xpath("//button[text()='New Window']']")).click();
+    driver.findElement(By.xpath("//button[text()='New Window']")).click();
     String parent=driver.getWindowHandle();
     Set<String> handle=driver.getWindowHandles();
     Iterator<String> itr=handle.iterator();
